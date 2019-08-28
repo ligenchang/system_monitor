@@ -29,8 +29,7 @@ float Processor::Utilization() {
   float cpu_irq;
   float cpu_softirq;
   float cpu_steal;
-  float cpu_guest;
-  float cpu_guest_nice;
+
 
 
   std::ifstream filestream(LinuxParser::kProcDirectory + LinuxParser::kStatFilename);
@@ -48,8 +47,6 @@ float Processor::Utilization() {
           cpu_irq=stoi(irq);
           cpu_softirq=stoi(softirq);
           cpu_steal=stoi(steal);
-          cpu_guest=stoi(guest);
-          cpu_guest_nice=stoi(guest_nice);
         }
 
       }
@@ -57,8 +54,6 @@ float Processor::Utilization() {
   }
   float total_cpu_since_boot = cpu_user+cpu_nice+cpu_system+cpu_idle+cpu_iowait+cpu_irq+cpu_softirq+cpu_steal;
   float total_cpu_idle_boot =  cpu_idle + cpu_iowait;
-  float total_cpu_usage_boot=total_cpu_since_boot-total_cpu_idle_boot;
-  float total_cpu_percentage=total_cpu_usage_boot/total_cpu_since_boot*100;
   TOTAL= total_cpu_since_boot;
   IDLE= total_cpu_idle_boot;
 
